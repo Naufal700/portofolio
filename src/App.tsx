@@ -41,7 +41,7 @@ interface Project {
 }
 
 export default function Portofolio() {
-  const [darkMode] = useState(true);
+  // const [darkMode] = useState(true);
   const [loading, setLoading] = useState(true);
   const [activeSection, setActiveSection] = useState("home");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -78,11 +78,11 @@ export default function Portofolio() {
   const scaleHero = useTransform(scrollY, [0, 500], [1, 0.95]);
   
   // Spring animations for smoothness
-  const smoothScrollY = useSpring(scrollY, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
+  // const smoothScrollY = useSpring(scrollY, {
+  //   stiffness: 100,
+  //   damping: 30,
+  //   restDelta: 0.001
+  // });
 
   const projects: Project[] = [
     {

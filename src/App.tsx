@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { motion, useScroll, useTransform, useSpring, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import {
   Github,
   Linkedin,
@@ -1007,7 +1007,7 @@ export default function Portofolio() {
       </footer>
 
       {/* Custom Styles untuk animasi gradient */}
-      <style jsx global>{`
+      {/* <style jsx global>{`
         @keyframes gradient {
           0% { background-position: 0% 50%; }
           50% { background-position: 100% 50%; }
@@ -1022,7 +1022,7 @@ export default function Portofolio() {
         .bg-size-200 {
           background-size: 200% 200%;
         }
-      `}</style>
+      `}</style> */}
     </div>
   );
 }

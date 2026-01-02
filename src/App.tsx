@@ -453,7 +453,7 @@ export default function Portofolio() {
               transition={{ delay: 0.3 }}
             >
               <Sparkles size={16} className="text-cyan-400" />
-              <span className="text-sm text-gray-300">Analyst Akuntansi & Web Developer</span>
+              <span className="text-sm text-gray-300">Analyst Akuntansi</span>
             </motion.div>
 
             <motion.h1
@@ -685,13 +685,10 @@ export default function Portofolio() {
           >
             <h2 className="text-5xl md:text-6xl font-bold mb-6">
               <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                Portfolio
+                Project
               </span>
-              <span className="text-white"> Projects</span>
+              <span className="text-white"> Saya</span>
             </h2>
-            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-              Karya terpilih yang menunjukkan kemampuan dalam mengembangkan sistem bisnis terintegrasi
-            </p>
           </motion.div>
           
           <div className="grid lg:grid-cols-3 gap-8">
@@ -975,7 +972,7 @@ export default function Portofolio() {
                 <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg" />
                 <div>
                   <h3 className="text-xl font-bold text-white">NaufalDev</h3>
-                  <p className="text-gray-400 text-sm">Analyst & Web Developer</p>
+                  <p className="text-gray-400 text-sm">Analyst Akuntansi</p>
                 </div>
               </div>
             </motion.div>

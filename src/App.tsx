@@ -27,7 +27,7 @@ import monitoring from "./assets/Monitoring.png";
 import detaillk from "./assets/detail lembar kerja.png";
 import dashboardkeuangan from "./assets/Dashboard Keuangan.png";
 import aruskas from "./assets/Arus kas Direct.png";
-import neraca from "./assets/Dashboard Rasio Keuangan.png";
+import neraca from "./assets/Neraca.png";
 import dashboardrasiokeuangan from "./assets/Dashboard Rasio Keuangan.png";
 import closingbulanan from "./assets/closing bulanan.png";
 
@@ -41,7 +41,6 @@ interface Project {
 }
 
 export default function Portofolio() {
-  // const [darkMode] = useState(true);
   const [loading, setLoading] = useState(true);
   const [activeSection, setActiveSection] = useState("home");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -76,13 +75,6 @@ export default function Portofolio() {
   const yHero = useTransform(scrollY, [0, 500], [0, -150]);
   const opacityHero = useTransform(scrollY, [0, 300], [1, 0.3]);
   const scaleHero = useTransform(scrollY, [0, 500], [1, 0.95]);
-  
-  // Spring animations for smoothness
-  // const smoothScrollY = useSpring(scrollY, {
-  //   stiffness: 100,
-  //   damping: 30,
-  //   restDelta: 0.001
-  // });
 
   const projects: Project[] = [
     {
@@ -461,7 +453,7 @@ export default function Portofolio() {
               transition={{ delay: 0.3 }}
             >
               <Sparkles size={16} className="text-cyan-400" />
-              <span className="text-sm text-gray-300">Analyst Akuntansi</span>
+              <span className="text-sm text-gray-300">Analyst Akuntansi & Web Developer</span>
             </motion.div>
 
             <motion.h1
@@ -693,10 +685,13 @@ export default function Portofolio() {
           >
             <h2 className="text-5xl md:text-6xl font-bold mb-6">
               <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                Project
+                Portfolio
               </span>
-              <span className="text-white"> Saya</span>
+              <span className="text-white"> Projects</span>
             </h2>
+            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+              Karya terpilih yang menunjukkan kemampuan dalam mengembangkan sistem bisnis terintegrasi
+            </p>
           </motion.div>
           
           <div className="grid lg:grid-cols-3 gap-8">
@@ -769,7 +764,7 @@ export default function Portofolio() {
                     </p>
                     
                     {/* Tech Tags */}
-                    {/* <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-2">
                       <span className="px-3 py-1 text-xs bg-blue-500/20 text-blue-400 rounded-full border border-blue-500/30">
                         Web Application
                       </span>
@@ -779,7 +774,7 @@ export default function Portofolio() {
                       <span className="px-3 py-1 text-xs bg-purple-500/20 text-purple-400 rounded-full border border-purple-500/30">
                         Business Solution
                       </span>
-                    </div> */}
+                    </div>
                   </div>
                 </motion.div>
               ))}
@@ -976,13 +971,13 @@ export default function Portofolio() {
               whileInView={{ opacity: 1, x: 0 }}
               className="mb-6 md:mb-0"
             >
-              {/* <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg" />
                 <div>
                   <h3 className="text-xl font-bold text-white">NaufalDev</h3>
-                  <p className="text-gray-400 text-sm">Analyst Akuntansi</p>
+                  <p className="text-gray-400 text-sm">Analyst & Web Developer</p>
                 </div>
-              </div> */}
+              </div>
             </motion.div>
             
             <motion.p
@@ -998,31 +993,33 @@ export default function Portofolio() {
               whileInView={{ opacity: 1, x: 0 }}
               className="mt-6 md:mt-0"
             >
-              {/* <p className="text-gray-400 text-sm">
+              <p className="text-gray-400 text-sm">
                 Built with React & Framer Motion
-              </p> */}
+              </p>
             </motion.div>
           </div>
         </div>
       </footer>
 
-      {/* Custom Styles untuk animasi gradient */}
-      {/* <style jsx global>{`
-        @keyframes gradient {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
-        
-        .animate-gradient {
-          background-size: 200% 200%;
-          animation: gradient 3s ease infinite;
-        }
-        
-        .bg-size-200 {
-          background-size: 200% 200%;
-        }
-      `}</style> */}
+      {/* CSS untuk animasi gradient */}
+      <style>
+        {`
+          @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+          }
+          
+          .animate-gradient {
+            background-size: 200% 200%;
+            animation: gradient 3s ease infinite;
+          }
+          
+          .bg-size-200 {
+            background-size: 200% 200%;
+          }
+        `}
+      </style>
     </div>
   );
 }

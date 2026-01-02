@@ -17,6 +17,11 @@ import lembarkerja from "./assets/lembar kerja.png";
 import keuangan from "./assets/keuangan.png";
 import monitoring from "./assets/Monitoring.png";
 import detaillk from "./assets/detail lembar kerja.png";
+import dashboardkeuangan from "./assets/Dashboard Keuangan.png";
+import aruskas from "./assets/Arus kas Direct.png";
+import neraca from "./assets/Dashboard Rasio Keuangan.png";
+import dashboardrasiokeuangan from "./assets/Dashboard Rasio Keuangan.png";
+import closingbulanan from "./assets/closing bulanan.png";
 
 // Type definitions
 interface Project {
@@ -77,9 +82,9 @@ export default function Portofolio() {
       technologies: [],
     },
     {
-      title: "Sistem POS & Persediaan",
-      desc: "Point of Sale berbasis web dengan metode FIFO dan integrasi otomatis ke jurnal akuntansi.",
-      img: "https://source.unsplash.com/1000x700/?warehouse,computer",
+      title: "LEDGIRA | Ledger Information Reporting App",
+      desc: "Aplikasi Berbasis web yang dirancang untuk memudahkan proses pencatatan transaksi sampai ke laporan keuangan.",
+      img: [dashboardkeuangan,aruskas,neraca,dashboardrasiokeuangan,closingbulanan],
       link: "#",
       technologies: [],
     },

@@ -14,6 +14,8 @@ import {
   Layout,
   Globe,
   Zap,
+  Menu,
+  X,
 } from "lucide-react";
 import simrs from "./assets/simrs.png";
 import jurnal from "./assets/jurnal.png";
@@ -45,6 +47,7 @@ export default function Portofolio() {
   const [activeSection, setActiveSection] = useState("home");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -107,13 +110,14 @@ export default function Portofolio() {
 
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    setIsMobileMenuOpen(false);
   };
 
   // Floating Particles Background
   const ParticleBackground = () => {
     return (
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
+        {[...Array(15)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute w-[1px] h-[1px] bg-blue-500/20 rounded-full"
@@ -147,23 +151,23 @@ export default function Portofolio() {
           style={{
             backgroundImage: `linear-gradient(to right, rgba(59, 130, 246, 0.1) 1px, transparent 1px),
                               linear-gradient(to bottom, rgba(59, 130, 246, 0.1) 1px, transparent 1px)`,
-            backgroundSize: '50px 50px',
+            backgroundSize: '40px 40px',
           }}
         />
       </div>
     );
   };
 
-  // Animated Tech Icons
+  // Animated Tech Icons - Hidden on mobile
   const TechIcons = () => (
-    <div className="absolute right-10 top-1/2 -translate-y-1/2 hidden xl:flex flex-col gap-6">
-      {[<Cpu size={24} />, <Code size={24} />, <Database size={24} />, <Layout size={24} />, <Globe size={24} />, <Zap size={24} />]
+    <div className="absolute right-4 xl:right-10 top-1/2 -translate-y-1/2 hidden lg:flex flex-col gap-4 xl:gap-6">
+      {[<Cpu size={20} />, <Code size={20} />, <Database size={20} />, <Layout size={20} />, <Globe size={20} />, <Zap size={20} />]
         .map((Icon, i) => (
           <motion.div
             key={i}
-            className="p-3 rounded-xl bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700/50 shadow-lg"
+            className="p-2 xl:p-3 rounded-lg xl:rounded-xl bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700/50 shadow-lg"
             animate={{
-              y: [0, -10, 0],
+              y: [0, -8, 0],
             }}
             transition={{
               duration: 2,
@@ -189,7 +193,7 @@ export default function Portofolio() {
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
-            className="w-20 h-20 border-4 border-blue-500 border-t-transparent rounded-full mx-auto mb-6 relative"
+            className="w-16 h-16 md:w-20 md:h-20 border-4 border-blue-500 border-t-transparent rounded-full mx-auto mb-6 relative"
           >
             <motion.div
               className="absolute inset-0 border-4 border-cyan-500 border-b-transparent rounded-full"
@@ -201,7 +205,7 @@ export default function Portofolio() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
-            className="text-lg font-medium text-gray-300"
+            className="text-base md:text-lg font-medium text-gray-300"
           >
             Loading Portfolio...
           </motion.p>
@@ -288,31 +292,31 @@ export default function Portofolio() {
           <>
             <motion.button
               onClick={prevSlide}
-              className="absolute left-8 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white p-3 rounded-full transition-all duration-200 backdrop-blur-lg border border-white/10 z-50"
+              className="absolute left-2 sm:left-8 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white p-2 sm:p-3 rounded-full transition-all duration-200 backdrop-blur-lg border border-white/10 z-50"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </motion.button>
             <motion.button
               onClick={nextSlide}
-              className="absolute right-8 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white p-3 rounded-full transition-all duration-200 backdrop-blur-lg border border-white/10 z-50"
+              className="absolute right-2 sm:right-8 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white p-2 sm:p-3 rounded-full transition-all duration-200 backdrop-blur-lg border border-white/10 z-50"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </motion.button>
 
-            <div className="absolute bottom-24 left-0 right-0 flex justify-center gap-3 z-50">
+            <div className="absolute bottom-16 sm:bottom-24 left-0 right-0 flex justify-center gap-2 sm:gap-3 z-50">
               {images.map((_, i) => (
                 <motion.button
                   key={i}
                   onClick={(e) => goToSlide(i, e)}
-                  className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                  className={`w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full transition-all duration-300 ${
                     i === current 
                       ? "bg-white scale-125" 
                       : "bg-white/40 hover:bg-white/60"
@@ -322,7 +326,7 @@ export default function Portofolio() {
               ))}
             </div>
 
-            <div className="absolute top-8 left-8 bg-black/40 text-white px-4 py-2 rounded-full text-sm backdrop-blur-lg border border-white/10 z-50">
+            <div className="absolute top-4 sm:top-8 left-4 sm:left-8 bg-black/40 text-white px-3 py-1 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm backdrop-blur-lg border border-white/10 z-50">
               {current + 1} / {images.length}
             </div>
           </>
@@ -359,12 +363,12 @@ export default function Portofolio() {
 
       {/* HEADER */}
       <motion.header
-        className="fixed w-full z-50 bg-gray-900/80 backdrop-blur-xl border-b border-gray-800"
+        className="fixed w-full z-50 bg-gray-900/90 backdrop-blur-xl border-b border-gray-800"
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        <nav className="max-w-7xl mx-auto flex justify-between items-center py-4 px-8">
+        <nav className="max-w-7xl mx-auto flex justify-between items-center py-4 px-4 sm:px-6 lg:px-8">
           <motion.div
             className="flex items-center gap-2 cursor-pointer"
             onClick={() => scrollTo("home")}
@@ -372,20 +376,21 @@ export default function Portofolio() {
           >
             <div className="relative">
               <motion.div
-                className="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg"
+                className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg"
                 animate={{ rotate: [0, 360] }}
                 transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
               />
-              <Code className="absolute inset-0 m-auto text-white" size={24} />
+              <Code className="absolute inset-0 m-auto text-white w-4 h-4 sm:w-6 sm:h-6" />
             </div>
             <motion.h1
-              className="text-2xl font-bold tracking-tight bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent"
+              className="text-xl sm:text-2xl font-bold tracking-tight bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent"
             >
               Naufal<span className="text-white">Dev</span>
             </motion.h1>
           </motion.div>
           
-          <ul className="hidden md:flex space-x-8 font-medium">
+          {/* Desktop Navigation */}
+          <ul className="hidden md:flex space-x-6 lg:space-x-8 font-medium">
             {[
               { id: "home", label: "Beranda" },
               { id: "about", label: "Tentang" },
@@ -415,21 +420,72 @@ export default function Portofolio() {
             ))}
           </ul>
 
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden p-2 rounded-lg bg-gray-800/50 border border-gray-700/50"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+
+          {/* Desktop CTA Button */}
           <motion.button
             onClick={() => scrollTo("contact")}
-            className="px-6 py-2.5 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-lg font-semibold text-white shadow-lg hover:shadow-blue-500/25 transition-all duration-300"
+            className="hidden md:block px-4 sm:px-6 py-2 sm:py-2.5 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-lg font-semibold text-white shadow-lg hover:shadow-blue-500/25 transition-all duration-300"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             Start Project
           </motion.button>
         </nav>
+
+        {/* Mobile Menu */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              className="md:hidden bg-gray-900/95 backdrop-blur-xl border-t border-gray-800"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div className="px-4 py-6 space-y-4">
+                {[
+                  { id: "home", label: "Beranda" },
+                  { id: "about", label: "Tentang" },
+                  { id: "project", label: "Proyek" },
+                  { id: "contact", label: "Kontak" },
+                ].map((item) => (
+                  <motion.button
+                    key={item.id}
+                    onClick={() => scrollTo(item.id)}
+                    className={`block w-full text-left py-3 px-4 rounded-lg transition-colors ${
+                      activeSection === item.id
+                        ? "bg-blue-500/10 text-blue-400"
+                        : "text-gray-300 hover:bg-gray-800/50"
+                    }`}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    {item.label}
+                  </motion.button>
+                ))}
+                <motion.button
+                  onClick={() => scrollTo("contact")}
+                  className="w-full py-3 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-lg font-semibold"
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Start Project
+                </motion.button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.header>
 
       {/* HERO SECTION */}
       <section
         id="home"
-        className="min-h-screen relative overflow-hidden flex items-center justify-center"
+        className="min-h-screen relative overflow-hidden flex items-center justify-center pt-16"
       >
         <motion.div
           style={{ 
@@ -437,27 +493,27 @@ export default function Portofolio() {
             opacity: opacityHero,
             scale: scaleHero 
           }}
-          className="z-10 px-8 max-w-6xl text-center relative"
+          className="z-10 px-4 sm:px-6 lg:px-8 max-w-6xl text-center relative"
         >
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="mb-12"
+            className="mb-8 sm:mb-12"
           >
             {/* Animated Badge */}
             <motion.div
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-800/50 border border-gray-700/50 mb-8"
+              className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-gray-800/50 border border-gray-700/50 mb-6 sm:mb-8"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
             >
-              <Sparkles size={16} className="text-cyan-400" />
-              <span className="text-sm text-gray-300">Analyst Akuntansi</span>
+              <Sparkles size={14} className="text-cyan-400" />
+              <span className="text-xs sm:text-sm text-gray-300">Analyst Akuntansi</span>
             </motion.div>
 
             <motion.h1
-              className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-6 sm:mb-8 leading-tight"
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.4 }}
@@ -466,11 +522,11 @@ export default function Portofolio() {
                 Muhamad Naufal
               </span>
               <br />
-              <span className="text-white">Istikhori</span>
+              <span className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">Istikhori</span>
             </motion.h1>
 
             <motion.p
-              className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto mb-12 leading-relaxed"
+              className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300 max-w-3xl mx-auto mb-8 sm:mb-12 leading-relaxed px-2"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6 }}
@@ -484,46 +540,46 @@ export default function Portofolio() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8 }}
-            className="flex flex-col sm:flex-row gap-6 justify-center items-center"
+            className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center"
           >
             <motion.button
               onClick={() => scrollTo("contact")}
-              className="group px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-xl font-semibold shadow-2xl shadow-blue-500/30 hover:shadow-blue-500/50 transition-all duration-300 flex items-center gap-3"
+              className="group w-full sm:w-auto px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-xl font-semibold shadow-2xl shadow-blue-500/30 hover:shadow-blue-500/50 transition-all duration-300 flex items-center justify-center gap-3"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
             >
-              Mulai Projek Bersama
-              <ChevronRight className="group-hover:translate-x-1 transition-transform" size={20} />
+              <span className="text-sm sm:text-base">Mulai Projek Bersama</span>
+              <ChevronRight className="group-hover:translate-x-1 transition-transform w-4 h-4 sm:w-5 sm:h-5" />
             </motion.button>
             
             <motion.button
               onClick={() => scrollTo("project")}
-              className="px-8 py-4 border border-gray-700 bg-gray-900/50 hover:bg-gray-800/50 rounded-xl font-semibold transition-all duration-300 flex items-center gap-3"
+              className="w-full sm:w-auto px-6 py-3 sm:px-8 sm:py-4 border border-gray-700 bg-gray-900/50 hover:bg-gray-800/50 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-3"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
             >
-              <span>Lihat Portfolio</span>
-              <ArrowDown size={20} />
+              <span className="text-sm sm:text-base">Lihat Portfolio</span>
+              <ArrowDown className="w-4 h-4 sm:w-5 sm:h-5" />
             </motion.button>
           </motion.div>
 
           <motion.div
-            className="mt-16 flex space-x-6 justify-center"
+            className="mt-12 sm:mt-16 flex space-x-4 sm:space-x-6 justify-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1 }}
           >
             {[
-              { icon: <Github size={24} />, href: "https://github.com/Naufal700", label: "GitHub" },
-              { icon: <Linkedin size={24} />, href: "https://www.linkedin.com/in/muhamad-naufal-istikhori", label: "LinkedIn" },
-              { icon: <Mail size={24} />, href: "mailto:ufalbender700@gmail.com", label: "Email" },
+              { icon: <Github className="w-5 h-5 sm:w-6 sm:h-6" />, href: "https://github.com/Naufal700", label: "GitHub" },
+              { icon: <Linkedin className="w-5 h-5 sm:w-6 sm:h-6" />, href: "https://www.linkedin.com/in/muhamad-naufal-istikhori", label: "LinkedIn" },
+              { icon: <Mail className="w-5 h-5 sm:w-6 sm:h-6" />, href: "mailto:ufalbender700@gmail.com", label: "Email" },
             ].map((social, index) => (
               <motion.a
                 key={social.label}
                 href={social.href}
                 target="_blank"
                 rel="noreferrer"
-                className="p-4 rounded-xl bg-gray-900/50 border border-gray-700/50 hover:border-blue-500/50 hover:bg-gray-800/50 transition-all duration-300 group"
+                className="p-3 sm:p-4 rounded-xl bg-gray-900/50 border border-gray-700/50 hover:border-blue-500/50 hover:bg-gray-800/50 transition-all duration-300 group"
                 whileHover={{ scale: 1.1, y: -4 }}
                 whileTap={{ scale: 0.95 }}
                 initial={{ opacity: 0, y: 20 }}
@@ -540,15 +596,15 @@ export default function Portofolio() {
 
         {/* Animated Scroll Indicator */}
         <motion.div
-          className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
-          animate={{ y: [0, 10, 0] }}
+          className="absolute bottom-6 sm:bottom-10 left-1/2 transform -translate-x-1/2"
+          animate={{ y: [0, 8, 0] }}
           transition={{ repeat: Infinity, duration: 2 }}
         >
           <button
             onClick={() => scrollTo("about")}
-            className="p-3 rounded-full bg-gray-900/50 border border-gray-700/50 hover:border-blue-500/50 transition-colors"
+            className="p-2 sm:p-3 rounded-full bg-gray-900/50 border border-gray-700/50 hover:border-blue-500/50 transition-colors"
           >
-            <ArrowDown size={24} className="text-blue-400" />
+            <ArrowDown className="w-5 h-5 sm:w-6 sm:h-6 text-blue-400" />
           </button>
         </motion.div>
 
@@ -558,14 +614,14 @@ export default function Portofolio() {
       {/* TENTANG SAYA */}
       <motion.section
         id="about"
-        className="py-32 px-8 relative overflow-hidden"
+        className="py-16 sm:py-24 md:py-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, amount: 0.2 }}
       >
         <div className="max-w-6xl mx-auto relative">
           <motion.div
-            className="absolute -top-20 -left-20 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl"
+            className="absolute -top-10 -left-10 sm:-top-20 sm:-left-20 w-40 h-40 sm:w-64 sm:h-64 bg-blue-500/10 rounded-full blur-3xl"
             animate={{ 
               scale: [1, 1.2, 1],
               opacity: [0.3, 0.5, 0.3] 
@@ -578,7 +634,7 @@ export default function Portofolio() {
           />
           
           <motion.h2
-            className="text-5xl md:text-6xl font-bold mb-12 text-center"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-8 sm:mb-12 text-center"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -590,50 +646,50 @@ export default function Portofolio() {
           </motion.h2>
 
           <motion.div
-            className="grid lg:grid-cols-2 gap-16 items-center"
+            className="grid lg:grid-cols-2 gap-8 sm:gap-12 md:gap-16 items-center"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <div className="space-y-8">
+            <div className="space-y-6 sm:space-y-8">
               <motion.div
-                className="p-8 rounded-2xl bg-gradient-to-br from-gray-900/50 to-gray-800/50 border border-gray-700/50 backdrop-blur-sm"
+                className="p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-gray-900/50 to-gray-800/50 border border-gray-700/50 backdrop-blur-sm"
                 whileHover={{ y: -5 }}
                 transition={{ duration: 0.3 }}
               >
-                <h3 className="text-2xl font-bold mb-4 flex items-center gap-3">
+                <h3 className="text-xl sm:text-2xl font-bold mb-4 flex items-center gap-3">
                   <div className="p-2 rounded-lg bg-blue-500/20">
-                    <Code className="text-blue-400" size={24} />
+                    <Code className="text-blue-400 w-5 h-5 sm:w-6 sm:h-6" />
                   </div>
                   <span>Keahlian Teknis</span>
                 </h3>
-                <p className="text-gray-300 leading-relaxed">
+                <p className="text-gray-300 leading-relaxed text-sm sm:text-base">
                   Mengembangkan sistem ERP dan aplikasi bisnis terintegrasi dengan fokus pada 
                   skalabilitas, user experience, dan dukungan pengambilan keputusan berbasis data.
                 </p>
               </motion.div>
 
               <motion.div
-                className="p-8 rounded-2xl bg-gradient-to-br from-gray-900/50 to-gray-800/50 border border-gray-700/50 backdrop-blur-sm"
+                className="p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-gray-900/50 to-gray-800/50 border border-gray-700/50 backdrop-blur-sm"
                 whileHover={{ y: -5 }}
                 transition={{ duration: 0.3, delay: 0.1 }}
               >
-                <h3 className="text-2xl font-bold mb-4 flex items-center gap-3">
+                <h3 className="text-xl sm:text-2xl font-bold mb-4 flex items-center gap-3">
                   <div className="p-2 rounded-lg bg-cyan-500/20">
-                    <Database className="text-cyan-400" size={24} />
+                    <Database className="text-cyan-400 w-5 h-5 sm:w-6 sm:h-6" />
                   </div>
                   <span>Pendekatan Bisnis</span>
                 </h3>
-                <p className="text-gray-300 leading-relaxed">
+                <p className="text-gray-300 leading-relaxed text-sm sm:text-base">
                   Memahami kebutuhan bisnis secara mendalam dan menerjemahkannya menjadi 
                   solusi digital yang efisien dan memberikan nilai nyata bagi organisasi.
                 </p>
               </motion.div>
             </div>
 
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               <motion.p
-                className="text-xl text-gray-300 leading-relaxed"
+                className="text-base sm:text-lg lg:text-xl text-gray-300 leading-relaxed"
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
@@ -644,7 +700,7 @@ export default function Portofolio() {
               </motion.p>
               
               <motion.p
-                className="text-xl text-gray-300 leading-relaxed"
+                className="text-base sm:text-lg lg:text-xl text-gray-300 leading-relaxed"
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.6 }}
@@ -655,7 +711,7 @@ export default function Portofolio() {
               </motion.p>
               
               <motion.p
-                className="text-xl text-gray-300 leading-relaxed"
+                className="text-base sm:text-lg lg:text-xl text-gray-300 leading-relaxed"
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.8 }}
@@ -671,19 +727,19 @@ export default function Portofolio() {
       {/* PROYEK */}
       <motion.section
         id="project"
-        className="py-32 px-8 relative"
+        className="py-16 sm:py-24 md:py-32 px-4 sm:px-6 lg:px-8 relative"
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, amount: 0.1 }}
       >
         <div className="max-w-7xl mx-auto">
           <motion.div
-            className="text-center mb-20"
+            className="text-center mb-12 sm:mb-16 md:mb-20"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-5xl md:text-6xl font-bold mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6">
               <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
                 Project
               </span>
@@ -691,7 +747,7 @@ export default function Portofolio() {
             </h2>
           </motion.div>
           
-          <div className="grid lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             <AnimatePresence>
               {projects.map((project, index) => (
                 <motion.div
@@ -728,7 +784,7 @@ export default function Portofolio() {
                   <div className="absolute inset-[1px] rounded-2xl bg-gray-900" />
                   
                   {/* Image Container */}
-                  <div className="relative h-56 overflow-hidden">
+                  <div className="relative h-48 sm:h-56 overflow-hidden">
                     {Array.isArray(project.img) ? (
                       <Slideshow images={project.img} />
                     ) : (
@@ -744,7 +800,7 @@ export default function Portofolio() {
                     
                     {/* View Project Button */}
                     <motion.button
-                      className="absolute top-4 right-4 px-4 py-2 bg-black/50 backdrop-blur-sm rounded-lg text-white text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 border border-white/10"
+                      className="absolute top-3 right-3 sm:top-4 sm:right-4 px-3 py-1.5 sm:px-4 sm:py-2 bg-black/50 backdrop-blur-sm rounded-lg text-white text-xs sm:text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 border border-white/10"
                       whileHover={{ scale: 1.05 }}
                     >
                       View Details
@@ -752,23 +808,23 @@ export default function Portofolio() {
                   </div>
                   
                   {/* Content */}
-                  <div className="relative p-8">
-                    <h3 className="text-2xl font-bold mb-4 text-white group-hover:text-blue-400 transition-colors duration-300">
+                  <div className="relative p-4 sm:p-6 md:p-8">
+                    <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-2 sm:mb-4 text-white group-hover:text-blue-400 transition-colors duration-300">
                       {project.title}
                     </h3>
-                    <p className="text-gray-400 mb-6 leading-relaxed">
+                    <p className="text-gray-400 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base">
                       {project.desc}
                     </p>
                     
                     {/* Tech Tags */}
-                    <div className="flex flex-wrap gap-2">
-                      <span className="px-3 py-1 text-xs bg-blue-500/20 text-blue-400 rounded-full border border-blue-500/30">
+                    <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                      <span className="px-2.5 py-0.5 sm:px-3 sm:py-1 text-xs bg-blue-500/20 text-blue-400 rounded-full border border-blue-500/30">
                         Web Application
                       </span>
-                      <span className="px-3 py-1 text-xs bg-cyan-500/20 text-cyan-400 rounded-full border border-cyan-500/30">
+                      <span className="px-2.5 py-0.5 sm:px-3 sm:py-1 text-xs bg-cyan-500/20 text-cyan-400 rounded-full border border-cyan-500/30">
                         ERP System
                       </span>
-                      <span className="px-3 py-1 text-xs bg-purple-500/20 text-purple-400 rounded-full border border-purple-500/30">
+                      <span className="px-2.5 py-0.5 sm:px-3 sm:py-1 text-xs bg-purple-500/20 text-purple-400 rounded-full border border-purple-500/30">
                         Business Solution
                       </span>
                     </div>
@@ -783,106 +839,106 @@ export default function Portofolio() {
       {/* KONTAK */}
       <motion.section
         id="contact"
-        className="py-32 px-8 relative"
+        className="py-16 sm:py-24 md:py-32 px-4 sm:px-6 lg:px-8 relative"
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, amount: 0.2 }}
       >
         <div className="max-w-6xl mx-auto">
           <motion.div
-            className="text-center mb-20"
+            className="text-center mb-12 sm:mb-16 md:mb-20"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-5xl md:text-6xl font-bold mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6">
               <span className="text-white">Mari </span>
               <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
                 Bekerja Sama
               </span>
             </h2>
-            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl text-gray-400 max-w-2xl mx-auto px-2">
               Tertarik mengembangkan solusi digital untuk bisnis Anda? 
               Mari berdiskusi bagaimana saya dapat membantu mewujudkan ide Anda.
             </p>
           </motion.div>
           
           <motion.div
-            className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto"
+            className="grid md:grid-cols-2 gap-4 sm:gap-6 md:gap-8 max-w-4xl mx-auto"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             {/* Contact Card 1 */}
             <motion.div
-              className="p-8 rounded-2xl bg-gradient-to-br from-gray-900/50 to-gray-800/50 border border-gray-700/50 backdrop-blur-sm"
+              className="p-4 sm:p-6 md:p-8 rounded-2xl bg-gradient-to-br from-gray-900/50 to-gray-800/50 border border-gray-700/50 backdrop-blur-sm"
               whileHover={{ y: -5 }}
               transition={{ duration: 0.3 }}
             >
-              <div className="flex items-center gap-4 mb-6">
-                <div className="p-3 rounded-xl bg-green-500/20 border border-green-500/30">
-                  <Phone className="text-green-400" size={24} />
+              <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+                <div className="p-2.5 sm:p-3 rounded-xl bg-green-500/20 border border-green-500/30">
+                  <Phone className="text-green-400 w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
-                <h3 className="text-2xl font-bold text-white">WhatsApp</h3>
+                <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white">WhatsApp</h3>
               </div>
-              <p className="text-gray-400 mb-6">
+              <p className="text-gray-400 mb-4 sm:mb-6 text-sm sm:text-base">
                 Hubungi saya langsung untuk diskusi cepat dan responsif.
               </p>
               <motion.button
                 onClick={handleWhatsApp}
-                className="w-full py-4 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-green-500/30 transition-all duration-300 flex items-center justify-center gap-3"
+                className="w-full py-3 sm:py-4 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-green-500/30 transition-all duration-300 flex items-center justify-center gap-2 sm:gap-3"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <Phone size={20} />
-                Hubungi via WhatsApp
+                <Phone className="w-4 h-4 sm:w-5 sm:h-5" />
+                <span className="text-sm sm:text-base">Hubungi via WhatsApp</span>
               </motion.button>
             </motion.div>
 
             {/* Contact Card 2 */}
             <motion.div
-              className="p-8 rounded-2xl bg-gradient-to-br from-gray-900/50 to-gray-800/50 border border-gray-700/50 backdrop-blur-sm"
+              className="p-4 sm:p-6 md:p-8 rounded-2xl bg-gradient-to-br from-gray-900/50 to-gray-800/50 border border-gray-700/50 backdrop-blur-sm"
               whileHover={{ y: -5 }}
               transition={{ duration: 0.3, delay: 0.1 }}
             >
-              <div className="flex items-center gap-4 mb-6">
-                <div className="p-3 rounded-xl bg-blue-500/20 border border-blue-500/30">
-                  <Mail className="text-blue-400" size={24} />
+              <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+                <div className="p-2.5 sm:p-3 rounded-xl bg-blue-500/20 border border-blue-500/30">
+                  <Mail className="text-blue-400 w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
-                <h3 className="text-2xl font-bold text-white">Email</h3>
+                <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white">Email</h3>
               </div>
-              <p className="text-gray-400 mb-6">
+              <p className="text-gray-400 mb-4 sm:mb-6 text-sm sm:text-base">
                 Kirim detail proyek Anda untuk diskusi lebih mendalam.
               </p>
               <motion.a
                 href="mailto:ufalbender700@gmail.com"
-                className="block w-full py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-blue-500/30 transition-all duration-300 flex items-center justify-center gap-3"
+                className="block w-full py-3 sm:py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-blue-500/30 transition-all duration-300 flex items-center justify-center gap-2 sm:gap-3"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <Mail size={20} />
-                Kirim Email
+                <Mail className="w-4 h-4 sm:w-5 sm:h-5" />
+                <span className="text-sm sm:text-base">Kirim Email</span>
               </motion.a>
             </motion.div>
           </motion.div>
 
           {/* Social Links */}
           <motion.div
-            className="flex justify-center gap-6 mt-20"
+            className="flex justify-center gap-4 sm:gap-6 mt-12 sm:mt-16 md:mt-20"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
             {[
-              { icon: <Github size={24} />, href: "https://github.com/Naufal700", label: "GitHub" },
-              { icon: <Linkedin size={24} />, href: "https://www.linkedin.com/in/muhamad-naufal-istikhori", label: "LinkedIn" },
+              { icon: <Github className="w-5 h-5 sm:w-6 sm:h-6" />, href: "https://github.com/Naufal700", label: "GitHub" },
+              { icon: <Linkedin className="w-5 h-5 sm:w-6 sm:h-6" />, href: "https://www.linkedin.com/in/muhamad-naufal-istikhori", label: "LinkedIn" },
             ].map((social, index) => (
               <motion.a
                 key={social.label}
                 href={social.href}
                 target="_blank"
                 rel="noreferrer"
-                className="p-4 rounded-xl bg-gray-900/50 border border-gray-700/50 hover:border-blue-500/50 hover:bg-gray-800/50 transition-all duration-300"
+                className="p-3 sm:p-4 rounded-xl bg-gray-900/50 border border-gray-700/50 hover:border-blue-500/50 hover:bg-gray-800/50 transition-all duration-300"
                 whileHover={{ scale: 1.1, y: -4 }}
                 whileTap={{ scale: 0.95 }}
                 initial={{ opacity: 0, y: 20 }}
@@ -902,7 +958,7 @@ export default function Portofolio() {
       <AnimatePresence>
         {selectedProject && (
           <motion.div
-            className="fixed inset-0 bg-black/95 flex items-center justify-center z-[999] p-4"
+            className="fixed inset-0 bg-black/95 flex items-center justify-center z-[999] p-2 sm:p-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -911,21 +967,21 @@ export default function Portofolio() {
             {/* Tombol tutup */}
             <motion.button
               onClick={() => setSelectedProject(null)}
-              className="absolute top-8 right-8 z-50 text-white bg-gray-900/80 hover:bg-gray-800/80 p-3 rounded-full transition-all duration-200 backdrop-blur-lg border border-gray-700/50"
+              className="absolute top-4 sm:top-8 right-4 sm:right-8 z-50 text-white bg-gray-900/80 hover:bg-gray-800/80 p-2 sm:p-3 rounded-full transition-all duration-200 backdrop-blur-lg border border-gray-700/50"
               whileHover={{ scale: 1.1, rotate: 90 }}
               whileTap={{ scale: 0.9 }}
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2 }}
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </motion.button>
 
             {/* Container Modal */}
             <motion.div
-              className="relative w-full max-w-7xl h-[90vh] rounded-2xl overflow-hidden bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700/50"
+              className="relative w-full h-[90vh] sm:max-w-7xl sm:h-[90vh] rounded-2xl overflow-hidden bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700/50"
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
@@ -933,7 +989,7 @@ export default function Portofolio() {
               onClick={(e) => e.stopPropagation()}
             >
               {/* Gambar */}
-              <div className="h-3/4 bg-gray-950">
+              <div className="h-2/3 sm:h-3/4 bg-gray-950">
                 {Array.isArray(selectedProject.img) ? (
                   <FullScreenSlideshow images={selectedProject.img} />
                 ) : (
@@ -946,10 +1002,10 @@ export default function Portofolio() {
               </div>
 
               {/* Informasi proyek */}
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-gray-900 via-gray-900/95 to-transparent p-8 pt-16">
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-gray-900 via-gray-900/95 to-transparent p-4 sm:p-6 md:p-8 pt-12 sm:pt-16">
                 <div className="max-w-4xl mx-auto">
-                  <h3 className="text-3xl font-bold mb-4 text-white">{selectedProject.title}</h3>
-                  <p className="text-gray-300 leading-relaxed">
+                  <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mb-2 sm:mb-4 text-white">{selectedProject.title}</h3>
+                  <p className="text-gray-300 leading-relaxed text-sm sm:text-base">
                     {selectedProject.desc}
                   </p>
                 </div>
@@ -960,19 +1016,19 @@ export default function Portofolio() {
       </AnimatePresence>
 
       {/* FOOTER */}
-      <footer className="py-12 relative border-t border-gray-800/50">
-        <div className="max-w-6xl mx-auto px-8">
+      <footer className="py-8 sm:py-12 relative border-t border-gray-800/50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
-              className="mb-6 md:mb-0"
+              className="mb-4 md:mb-0"
             >
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg" />
+                <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg" />
                 <div>
-                  <h3 className="text-xl font-bold text-white">NaufalDev</h3>
-                  <p className="text-gray-400 text-sm">Analyst Akuntansi</p>
+                  <h3 className="text-lg sm:text-xl font-bold text-white">NaufalDev</h3>
+                  <p className="text-gray-400 text-xs sm:text-sm">Analyst Akuntansi</p>
                 </div>
               </div>
             </motion.div>
@@ -980,7 +1036,7 @@ export default function Portofolio() {
             <motion.p
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
-              className="text-gray-500 text-center"
+              className="text-gray-500 text-center text-sm sm:text-base mb-4 md:mb-0"
             >
               © {new Date().getFullYear()} <span className="text-white">Muhamad Naufal Istikhori</span>. All rights reserved.
             </motion.p>
@@ -988,9 +1044,9 @@ export default function Portofolio() {
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
-              className="mt-6 md:mt-0"
+              className="md:mt-0"
             >
-              <p className="text-gray-400 text-sm">
+              <p className="text-gray-400 text-xs sm:text-sm text-center md:text-right">
                 Built with React & Framer Motion
               </p>
             </motion.div>
@@ -1014,6 +1070,13 @@ export default function Portofolio() {
           
           .bg-size-200 {
             background-size: 200% 200%;
+          }
+
+          /* Optimasi untuk mobile */
+          @media (max-width: 640px) {
+            .text-balance {
+              text-wrap: balance;
+            }
           }
         `}
       </style>
